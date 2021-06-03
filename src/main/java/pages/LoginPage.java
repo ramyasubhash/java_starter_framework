@@ -25,7 +25,31 @@ public class LoginPage extends BasePage{
 
 	} 
 	
+	Function<WebDriver, WebElement> function = new Function<WebDriver, WebElement>()
+	 {
+	 public WebElement apply(WebDriver arg0) {
+	 System.out.println("Checking for the element!!");
+	 WebElement element =logout;
+	 if(element != null)
+	 {
+	 System.out.println("Target element found");
+	 }
+	 return element;
+	 }
+	 };
 	
+	 Function<WebDriver, WebElement> function1 = new Function<WebDriver, WebElement>()
+	 {
+	 public WebElement apply(WebDriver arg0) {
+	 System.out.println("Checking for the element!!");
+	 WebElement element =dropdown;
+	 if(element != null)
+	 {
+	 System.out.println("Target element found");
+	 }
+	 return element;
+	 }
+	 };
 	
 	/**
 	 * This section covers web elements definition 
@@ -43,7 +67,7 @@ public class LoginPage extends BasePage{
 	@FindBy(xpath = "//button[contains(text(), 'Log In')]")
 	public WebElement loginButton;
 
-	@FindBy(className = "dropdown")
+	@FindBy(xpath = "//div[@class='dropdown']")
 	public WebElement dropdown;
 
 	@FindBy(xpath = "//div[@class='profile-menu dropdown-menu show']//button[4]")
@@ -75,6 +99,9 @@ public class LoginPage extends BasePage{
 		Thread.sleep(3000);
 		WaitForElementToBeClickable(dropdown);
 		try {
+			waiter.until(function1);
+			
+			Thread.sleep(3000);
 			dropdown.click();
 		} catch (ElementClickInterceptedException e) {
 			// TODO Auto-generated catch block
@@ -86,7 +113,7 @@ public class LoginPage extends BasePage{
 		WaitForElementToBeClickable(logout);
 		Thread.sleep(3000);
 		try {
-			
+			waiter.until(function);
 			logout.click();
 		} catch (ElementClickInterceptedException e) {
 			// TODO Auto-generated catch block
